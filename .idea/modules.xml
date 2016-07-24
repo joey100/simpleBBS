@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../BBS/.idea/day20bbs.iml" filepath="$PROJECT_DIR$/../BBS/.idea/day20bbs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../simpleBBS/.idea/simpleBBS.iml" filepath="$PROJECT_DIR$/../simpleBBS/.idea/simpleBBS.iml" />
+    </modules>
+  </component>
+</project>

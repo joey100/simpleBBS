@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load customTag %}
+
+{% block page-container %}
+    <div class="wrap-left">
+        <div class="new-article-notify hide" >
+            <a href="{{ request.path }}" class="btn btn-success">有<span style="color: brown"></span >篇新文章</a>
+
+        </div>
+        {% for article in article_list reversed %}
+            <div class="row" article_id = "{{ latestId }}">
+                <div class="article-head-img col-md-4">
+                    <img src="/static/{{ article.head_img|truncateUrl }}">
+                </div>
+                <div class="article-brief col-md-8">
+                    <a class="article-title" href="{% url 'articleDetail' article.id %}">{{ article.title }}</a>
+                    <div>
+                        <span>作者：{{ article.author.name }}</span>
+                        &nbsp;&nbsp;<span>发布时间：{{ article.pub_date }}</span>
+                        <span>{% commentsThumps article as comments %}</span>
+                        &nbsp;&nbsp;<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                        {{ comments.commentsCount }}
+                        &nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                        {{ comments.thumpsCount }}
+                    </div>
+                    <div class="article-brief-text">
+                        {{ article.brief }}
+                    </div>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+
+    <div class="wrap-right">
+        <ul class="nav navbar-nav navbar-right">
+              {% if request.user.is_authenticated %}
+                  <li class="active">
+                      <form action="{% url 'inputArticle' %}" method="get">
+                          <input type="submit" class="btn btn-success" value="发表文章" />
+                      </form>
+                  </li>
+              {% endif %}
+          </ul>
+
+    </div>
+    <div class="clear-both"></div>
+
+{% endblock %}
+
+
+{% block bottom-js %}
+    <script>
+        $(document).ready(function(){
+            var articleFresh = setInterval(function(){
+                var latestArticleId = $( $(".wrap-left").children()[1]).attr("article_id");
+                $.getJSON("{% url 'getLatestArticleCount' %}",{latestId:latestArticleId},function(callback){
+{#                    console.log(callback);#}
+                    if(callback.newArticleCount > 0 ){
+                        if ($(".new-article-notify").hasClass("hide")){
+                            $(".new-article-notify").removeClass("hide");
+                        }
+                        $(".new-article-notify span").html(callback.newArticleCount);
+                    }
+                });//end get
+            },3000);//end setInterval
+        });//end doc ready
+    </script>
+
+{% endblock %}

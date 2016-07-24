@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% load customTag %}
+
+{% block page-container %}
+    <div class="wrap-left">
+        <div class="article-title-bg">
+            {{ articleObj.title }}
+        </div>
+        <div class="article-title-brief">
+            <span>作者:{{ articleObj.author.name }}</span>
+            &nbsp;&nbsp;<span>发布时间：{{ articleObj.pub_date }}</span>
+            <span>{% commentsThumps articleObj as comments %}
+                &nbsp;&nbsp;<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                {{ comments.commentsCount }}
+                &nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                {{ comments.thumpsCount }}
+            </span>
+        </div>
+        <div class="article-content">
+            <img class="article-detail-head-img" src="/static/{{ articleObj.head_img|truncateUrl }}" >
+            {{ articleObj.content|safe }}
+        </div>
+        <div class="comment-box">
+            {% if request.user.is_authenticated %}
+                <div class="new-comment-box">
+                    <textarea class="form-control" rows="3" style="color: gray" onfocus="if(value=='请在这儿输入评论'){value=''}" onblur="if(value==''){value='请在这儿输入评论'}">请在这儿输入评论</textarea>
+                    <button type="button" style="margin-top: 10px" class="btn btn-success pull-right" >评论</button>
+                    <a href="{% url 'articleDetail' articleObj.id %}" style="margin-top: 10px; margin-right:20px" class="btn btn-success pull-right" >取消评论</a>
+                </div>
+            {% else %}
+                <div class="jumbotron">
+                   <h4 class="text-center"><a class="btn-link" href="{% url 'accountLogin'%}?next={{ request.path }}">登录</a>后评论</h4>
+                </div>
+            {% endif %}
+
+        </div>
+        <div class="comment-details">
+            <button type="button" style="margin-top: 10px" class="btn btn-success" onclick="GetComments()">展示评论</button>
+            <button type="button" style="margin-top: 10px; margin-right: 30px" class="btn btn-success" onclick="removeComments()">收起评论</button>
+        </div>
+        <div class="comment-list" >
+
+        </div>
+    </div>
+    <div class="wrap-right">
+        <ul class="nav navbar-nav navbar-right">
+              {% if request.user.is_authenticated %}
+                  <li class="active">
+                      <form action="{% url 'inputArticle' %}" method="get">
+                          <input type="submit" class="btn btn-success" value="发表文章" />
+                      </form>
+                  </li>
+
+              {% endif %}
+          </ul>
+
+    </div>
+    <div class="clear-both"></div>
+
+{% endblock %}
+
+{% block bottom-js %}
+    <script>
+        function removeComments(){
+            $(".comment-list").html('');
+        }
+        function GetComments(){
+
+            $.get("{% url 'getComments' articleObj.id %}",function(callback){
+
+                console.log(callback);
+                if(callback == ''){
+                    callback = "<div style='color:red'>还没有评论！</div>"
+                }
+                $(".comment-list").html(callback);
+                //deal comments
+                $(".add-comment").click(function(){
+                    var comment_id = $(this).attr("comment-id");
+                    console.log("comment id:  " + comment_id);
+                    var new_comment_box_div = $(".new-comment-box").clone(true);// true表示绑定的事件一起克隆
+                    $(".new-comment-box").remove();
+                    $(this).parent().append(new_comment_box_div);
+                });//end deal comments
+            });//end get
+        }
+        function getCsrf() {
+          return $("input[name='csrfmiddlewaretoken']").val()
+        }; //获取csrf_token的值， csrf_token是一个input type=hidden
+        $(document).ready(function(){
+            //全部加载完毕doc 再执行function
+            GetComments();
+            $(".new-comment-box button").click(function(){     //绑定'评论' button
+                var commentText = $(".new-comment-box textarea").val();
+                console.log(commentText);
+                if (commentText.trim().length < 5 || commentText.trim() == '请在这儿输入评论' ){
+                    alert("评论数不能少于5");
+                } else{
+                    //ajax post
+                    var parent_comment_id = $(this).parent().prev().attr("comment-id"); //获取父评论的ID
+                    $.post("{% url 'postComments' %}",   //另一种ajax post写法
+                        {
+                            'comment_type':1,
+                            article_id:"{{ articleObj.id }}", //jquery里获取后台返回变量，要加引号"
+                            parent_comment_id:parent_comment_id,
+                            'comment':commentText.trim(),
+                            'csrfmiddlewaretoken':getCsrf(), //提交csrf_token到后台，才不会出错
+                        },
+                        function(callback){
+                            console.log(callback);
+                            if (callback != 'None'){   //callback is postComments返回的parent_comment_id, 为空说明针对文章评论，不是针对评论评论
+                                var new_comment_box_div = $(".new-comment-box").clone(true);
+                                $(".comment-details").before(new_comment_box_div);
+                            }
+                            $(".new-comment-box textarea").val("");
+                            GetComments();
+                        }
+                    )//end ajax post
+                };
+            });//end button click
+        });
+    </script>
+{% endblock %}
