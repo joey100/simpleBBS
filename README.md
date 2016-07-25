@@ -1,5 +1,5 @@
 ##simpleBBS
-A simple BBS which let you publish articles and add comments for the articles and comments, it also enables web chat: You can chat with others through the web, like web qq.
+A simple BBS which let you publish articles and add comments for the articles and comments, and it also enables web chat: You can chat with others through the web, like web qq.
 
 
 ##Prerequisites
@@ -56,4 +56,4 @@ $sudo python3 manage.py createsuperuser
 
 ##Known issues
 - When you chat with other users, in the message input window, if you press Enter, then the message will be sent out immediately. Do not click the send message button in the right, it's useless.
-- If your Ubuntu OS doesn't install xfce or Gnome Desktop, then you should replace 127.0.0.1 to be the Ubuntu OS Nic ip address in the URL.
+- If your Ubuntu OS doesn't install xfce or Gnome Desktop, then you should replace 127.0.0.1 to be the Ubuntu OS Nic ip address in other OS's URL.
