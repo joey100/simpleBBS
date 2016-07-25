@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="ed6719ef-529b-486e-bba6-b35ca1835d41" name="Default" comment="" />
-    <ignored path="bbs.iws" />
+    <ignored path="day20bbs.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
