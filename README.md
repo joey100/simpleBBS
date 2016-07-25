@@ -22,7 +22,9 @@ $sudo pip3 install pillow
 ```
 
 Refer the Django installation doc for more details: https://docs.djangoproject.com/en/dev/topics/install/
+
 Refer the Pillow installation doc for more details: http://pillow.readthedocs.io/en/3.0.x/installation.html
+
 We use Django 1.9.5 for the project.
 
 
@@ -37,7 +39,7 @@ $sudo git clone https://github.com/joey100/simpleBBS.git
 ##Start the project 
 ```
 $cd /tmp/simpleBBS
-$nohup sudo python3 manage.py runserver 127.0.0.1:8000 &
+$sudo python3 manage.py runserver 127.0.0.1:8000
 ```
 
 Then open URL http://127.0.0.1:8000/bbs/ , you will see some test articles are already there. You can use alex/alex12345 or eric/eric12345 to login, then you can add new articles and comments. You can also chat with other users through the web.
