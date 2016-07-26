@@ -3,7 +3,7 @@ A simple BBS which let you publish articles and add comments for the articles an
 
 
 ##Prerequisites
-Before you run the program, make sure your server which will run this program has been installed python3, Django, and pika, Pillow module.
+Before you run the program, make sure your server which will run this program has been installed python3, Django, and Pillow module.
 
 How to install the modules? We can use pip to install them easily. Take Ubuntu 14.04 OS for example.
 Ubuntu 14.04 installed python3.4 by default. Check your current os's python3 version: 
@@ -16,7 +16,6 @@ Install the modules:
 $sudo apt-get install python3-pip
 $sudo apt-get install python-dev
 $sudo pip3 install django
-$sudo pip3 install pika
 $sudo apt-get install libjpeg8-dev
 $sudo pip3 install pillow
 ```
