@@ -1,6 +1,17 @@
 ##simpleBBS
 A simple BBS which let you publish articles and add comments for the articles and comments, and it also enables web chat: You can chat with others through the web, like web qq.
 
+Tourist page: 
+![alt text][tourist]
+
+[tourist]: https://github.com/joey100/simpleBBS/blob/master/tourist.png "Tourist page"
+
+
+User page: 
+![alt text][user]
+
+[user]: https://github.com/joey100/simpleBBS/blob/master/user.png "User page"
+
 
 ##Prerequisites
 Before you run the program, make sure your server which will run this program has been installed python3, Django, and Pillow module.
