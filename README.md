@@ -4,13 +4,14 @@ A simple BBS which let you publish articles and add comments for the articles an
 Tourist page: 
 ![alt text][tourist]
 
-[tourist]: https://github.com/joey100/simpleBBS/blob/master/tourist.png "Tourist page"
+[tourist]: https://github.com/joey100/simpleBBS/blob/master/tourist.png "tourist page"
 
 
-User page: 
+
+User after login page: 
 ![alt text][user]
 
-[user]: https://github.com/joey100/simpleBBS/blob/master/user.png "User page"
+[user]: https://github.com/joey100/simpleBBS/blob/master/user.png "user page"
 
 
 ##Prerequisites
