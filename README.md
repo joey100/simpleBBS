@@ -67,4 +67,4 @@ $sudo python3 manage.py createsuperuser
 
 ##Known issues
 - When you chat with other users, in the message input window, if you press Enter, then the message will be sent out immediately. Do not click the send message button in the right, it's useless.
-- If your Ubuntu OS doesn't install xfce or Gnome Desktop, then you should replace 127.0.0.1 to be the Ubuntu OS Nic ip address in other OS's URL.
+- If your Ubuntu OS doesn't install xfce or Gnome Desktop, then you should replace 127.0.0.1 to be 0.0.0.0 in the command "sudo python3 manage.py runserver 127.0.0.1:8000" ; and replace 127.0.0.1 to be the Ubuntu OS Nic ip address in other OS's URL.
