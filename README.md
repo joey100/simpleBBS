@@ -28,7 +28,7 @@ Install the modules:
 $sudo apt-get install python3-pip
 $sudo apt-get install python-dev
 $sudo pip3 install django
-$sudo apt-get install libjpeg8-dev
+$sudo apt-get install libjpeg8-dev zlib1g-dev
 $sudo pip3 install pillow
 ```
 
